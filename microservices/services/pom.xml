@@ -21,7 +21,8 @@
     </description>
 
     <modules>
-        <module>user-services</module>
+<!--        <module>user-services</module>-->
+        <module>location-service</module>
     </modules>
 
 </project>
