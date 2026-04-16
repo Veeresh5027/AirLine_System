@@ -4,6 +4,8 @@ import com.vp.model.Airport;
 import com.vp.payload.request.AirportRequest;
 import com.vp.payload.response.AirportResponse;
 
+import java.util.Optional;
+
 public class AirportMapper {
 
     public static Airport airportEntity(AirportRequest request) {
@@ -33,5 +35,26 @@ public class AirportMapper {
                 .geoCode(airport.getGeoCode())
                 .city(CityMapper.toResponse(airport.getCity()))
                 .build();
+    }
+
+    //TODO: Update Airport
+    public static void updateEntity(AirportRequest request, Airport existingAirport) {
+        if (request == null || existingAirport == null) return;
+
+        Optional.ofNullable(request.getIataCode())
+                .ifPresent(existingAirport::setIataCode);
+
+        Optional.ofNullable(request.getName())
+                .ifPresent(existingAirport::setName);
+
+        Optional.ofNullable(request.getTimeZone())
+                .map(String::valueOf)
+                .ifPresent(existingAirport::setTimeZone);
+
+        Optional.ofNullable(request.getAddress())
+                .ifPresent(existingAirport::setAddress);
+
+        Optional.ofNullable(request.getGeoCode())
+                .ifPresent(existingAirport::setGeoCode);
     }
 }
